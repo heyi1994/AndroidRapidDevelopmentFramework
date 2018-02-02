@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">AndroidRapidDevelopmentFramework</string>
+
+
+    <string name="tip_is_loading">加载中&#8230;</string>
+    <string name="base_error_date_format">数据解析错误</string>
+    <string name="base_error_http_error">服务器错误(%d)</string>
+    <string name="base_error_NullPointerException">客户端开小差了，攻城狮正在修复中&#8230;</string>
+    <string name="base_error_unknow">未知错误</string>
+    <string name="base_error_network">网络异常</string>
 </resources>

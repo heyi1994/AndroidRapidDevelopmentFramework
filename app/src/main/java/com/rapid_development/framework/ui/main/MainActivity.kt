@@ -3,6 +3,7 @@ package com.rapid_development.framework.ui.main
 import android.view.View
 import com.rapid_development.framework.R
 import com.rapid_development.framework.base.BaseActivity
+import com.rapid_development.framework.base.BaseUiInterface
 import com.rapid_development.framework.data.log.L
 import com.rapid_development.framework.extends.clickButton
 import com.rapid_development.framework.extends.lightStatusBar
