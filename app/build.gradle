@@ -1,0 +1,117 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+
+def isBeta = true
+
+android {
+    compileSdkVersion rootProject.ext.COMPILE_SDK_VERSION
+    defaultConfig {
+        applicationId "com.rapid_development.framework"
+        minSdkVersion rootProject.ext.MIN_SDK_VERSION
+        targetSdkVersion rootProject.ext.TARGET_SDK_VERSION
+        versionCode 1
+        versionName "1.0.0.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        debug {
+            storeFile file("/jks/debug.jks")
+            storePassword "rapid_dev"
+            keyAlias "rapid"
+            keyPassword "rapid_dev"
+        }
+        release {
+            storeFile file("/jks/release.jks")
+            storePassword "rapid_dev"
+            keyAlias "rapid"
+            keyPassword "rapid_dev"
+        }
+    }
+
+    flavorDimensions "rapid_develoment"
+
+    productFlavors {
+        rapid_develoment {
+            dimension "rapid_develoment"
+        }
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+
+    task nativeLibsToJar(type: Zip, description: "create a jar archive of the native libs") {
+        destinationDir file("$projectDir/libs")
+        baseName "Native_Libs2"
+        extension "jar"
+        from fileTree(dir: "libs", include: "**/*.so")
+        into "lib"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    def name = variant.name.replace("Release", "")
+                    if (isBeta)outputFileName = "$name-${variant.versionName}-beta.apk"
+                    else outputFileName = "$name-${variant.versionName}.apk"
+                }
+            }
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
+        }
+    }
+
+
+    tasks.withType(JavaCompile) {
+        compileTask -> compileTask.dependsOn(nativeLibsToJar)
+    }
+
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:${rootProject.ext.BUILD_TOOLS_VERSION}"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    implementation "com.android.support:design:${rootProject.ext.BUILD_TOOLS_VERSION}"
+    implementation "com.android.support:support-v4:${rootProject.ext.BUILD_TOOLS_VERSION}"
+    implementation "com.android.support:cardview-v7:${rootProject.ext.BUILD_TOOLS_VERSION}"
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    implementation 'com.android.support:multidex:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.0.3'
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+    implementation 'com.koushikdutta.async:androidasync:2.2.1'
+
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+
+}
+androidExtensions {
+    experimental = true
+}
