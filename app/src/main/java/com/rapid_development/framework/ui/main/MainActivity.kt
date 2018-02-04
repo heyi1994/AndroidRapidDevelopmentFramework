@@ -5,6 +5,7 @@ import com.rapid_development.framework.R
 import com.rapid_development.framework.base.BaseActivity
 import com.rapid_development.framework.base.BaseUiInterface
 import com.rapid_development.framework.data.log.L
+import com.rapid_development.framework.data.sharepreferences.SharepreferenceHelper
 import com.rapid_development.framework.extends.clickButton
 import com.rapid_development.framework.extends.lightStatusBar
 import com.rapid_development.framework.extends.setStatusBarColor
@@ -31,6 +32,11 @@ class MainActivity:BaseActivity() {
       }){
           current++
       }
+
+        if (SharepreferenceHelper.isFirstRun()){
+            toast("the application is first run ;")
+            SharepreferenceHelper.setIsFirstRun(false)
+        }
     }
     override fun getRootView() = root
 }

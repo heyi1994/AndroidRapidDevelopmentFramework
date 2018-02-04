@@ -5,6 +5,8 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.support.multidex.MultiDex
 import android.support.multidex.MultiDexApplication
+import com.rapid_development.framework.data.sharepreferences.SharepreferenceHelper
+
 /**
  * @author Heyi
  * @since 1.0.0
@@ -12,7 +14,7 @@ import android.support.multidex.MultiDexApplication
 class RapidDevApplication :MultiDexApplication(){
     override fun onCreate() {
         super.onCreate()
-
+        SharepreferenceHelper.init(this)
     }
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
