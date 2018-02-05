@@ -3,26 +3,37 @@ package com.rapid_development.framework.ui.main
 import android.view.View
 import com.rapid_development.framework.R
 import com.rapid_development.framework.base.BaseActivity
+import com.rapid_development.framework.base.BaseObserver
+import com.rapid_development.framework.base.BasePresenter
 import com.rapid_development.framework.base.BaseUiInterface
+import com.rapid_development.framework.data.bean.AppConfig
+import com.rapid_development.framework.data.bean.BaseResponse
 import com.rapid_development.framework.data.log.L
+import com.rapid_development.framework.data.repository.RetrofitSource
 import com.rapid_development.framework.data.sharepreferences.SharepreferenceHelper
 import com.rapid_development.framework.extends.clickButton
 import com.rapid_development.framework.extends.lightStatusBar
 import com.rapid_development.framework.extends.setStatusBarColor
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * @author Heyi
  * @since 1.0.0
  */
-class MainActivity:BaseActivity() {
+class MainActivity:BaseActivity(),MainUiInterface{
     private val TAG:String=this.javaClass.simpleName
     private var current = 0
+
+    lateinit private var mPresenter:MainPresenter
     override fun getLayoutId() =  R.layout.activity_main
 
     override fun init() {
       setStatusBarColor(R.color.md_white)
       lightStatusBar()
+        mPresenter= MainPresenter(this)
+        mPresenter.getPhone()
       clickButton(btn,{
           if (current>10){
               toast("the current >10")
@@ -39,4 +50,29 @@ class MainActivity:BaseActivity() {
         }
     }
     override fun getRootView() = root
+
+    override fun showPhone(phone: String) {
+       toast("the phone is :$phone ;")
+    }
+}
+
+class MainPresenter(private val ui:MainUiInterface):BasePresenter<BaseUiInterface>(ui){
+    fun getPhone(){
+        RetrofitSource.getInstance().getAppConfig()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object :BaseObserver<BaseResponse<AppConfig>>(ui){
+                    override fun onSuccess(date: BaseResponse<AppConfig>) {
+                        date.data.phone?.let {
+                            ui.showPhone(it)
+                        }
+                    }
+                })
+    }
+}
+
+
+
+interface MainUiInterface:BaseUiInterface{
+    fun showPhone(phone:String)
 }

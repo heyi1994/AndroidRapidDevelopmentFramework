@@ -3,8 +3,8 @@ package com.rapid_development.framework.data.repository
 import android.os.Build
 import android.util.Log
 import com.rapid_development.framework.data.Consts
+import com.rapid_development.framework.data.bean.AppConfig
 import com.rapid_development.framework.data.bean.BaseResponse
-import com.rapid_development.framework.data.bean.Test
 import com.rapid_development.framework.data.log.L
 import io.reactivex.Observable
 import okhttp3.Interceptor
@@ -65,5 +65,5 @@ class RetrofitSource private constructor():ISource{
         mApi = mRetrofit.create(RetrofitApi::class.java)
     }
 
-    override fun getUserInfo() = mApi.getUserInfo()
+    override fun getAppConfig() = mApi.getAppConfig()
 }
