@@ -5,13 +5,11 @@ import android.content.Intent
 import android.media.AudioManager
 import android.os.Build
 import android.provider.Settings
+import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
 import com.rapid_development.framework.R
-import com.rapid_development.framework.base.BaseActivity
-import com.rapid_development.framework.base.BaseObserver
-import com.rapid_development.framework.base.BasePresenter
-import com.rapid_development.framework.base.BaseUiInterface
+import com.rapid_development.framework.base.*
 import com.rapid_development.framework.data.bean.AppConfig
 import com.rapid_development.framework.data.bean.BaseResponse
 import com.rapid_development.framework.data.log.L
@@ -57,7 +55,7 @@ class MainActivity:BaseActivity(),MainUiInterface{
         }
 
         btn2.setOnClickListener {
-
+            SimpleDialog(this).show()
         }
 
 
@@ -88,4 +86,16 @@ class MainPresenter(private val ui:MainUiInterface):BasePresenter<BaseUiInterfac
 
 interface MainUiInterface:BaseUiInterface{
     fun showPhone(phone:String)
+}
+
+
+class SimpleDialog(context: Context):BaseDialog(true,context) {
+    override fun getLayoutId() = R.layout.dialog_simple
+
+    override fun isWindowWidthFullScreen() = true
+
+    override fun init() {
+    }
+
+    override fun setGravity() = Gravity.BOTTOM
 }
