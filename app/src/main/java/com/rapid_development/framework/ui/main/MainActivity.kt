@@ -1,5 +1,11 @@
 package com.rapid_development.framework.ui.main
 
+import android.content.Context
+import android.content.Intent
+import android.media.AudioManager
+import android.os.Build
+import android.provider.Settings
+import android.view.KeyEvent
 import android.view.View
 import com.rapid_development.framework.R
 import com.rapid_development.framework.base.BaseActivity
@@ -13,6 +19,7 @@ import com.rapid_development.framework.data.repository.RetrofitSource
 import com.rapid_development.framework.data.sharepreferences.SharepreferenceHelper
 import com.rapid_development.framework.extends.clickButton
 import com.rapid_development.framework.extends.lightStatusBar
+import com.rapid_development.framework.extends.requstNotificationPolicy
 import com.rapid_development.framework.extends.setStatusBarColor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -48,6 +55,12 @@ class MainActivity:BaseActivity(),MainUiInterface{
             toast("the application is first run ;")
             SharepreferenceHelper.setIsFirstRun(false)
         }
+
+        btn2.setOnClickListener {
+
+        }
+
+
     }
     override fun getRootView() = root
 

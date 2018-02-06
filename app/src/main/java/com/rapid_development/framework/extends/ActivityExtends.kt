@@ -2,8 +2,15 @@ package com.rapid_development.framework.extends
 
 import android.annotation.TargetApi
 import android.app.Activity
+import android.app.NotificationManager
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.media.AudioManager
 import android.os.Build
 import android.os.PowerManager
+import android.provider.Settings
 import android.support.annotation.ColorRes
 import android.support.annotation.StringRes
 import android.util.TypedValue
@@ -11,6 +18,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import com.rapid_development.framework.R
+import com.rapid_development.framework.data.log.L
 import com.rapid_development.framework.utils.Manufacturer
 import com.rapid_development.framework.utils.StatusBarUtils
 import java.util.concurrent.locks.Lock
@@ -135,7 +143,18 @@ val Activity.screenWidth get() = resources.displayMetrics.widthPixels
 val Activity.screenHeight get() = resources.displayMetrics.heightPixels
 
 
-
+/**
+ * #### 获取勿扰模式权限,低于[Build.VERSION_CODES.M]返回true ; 高于则需要请求权限 ;  app播放音频要检测响铃模式和请求音频焦点 ;
+ *  - 应用 : 用[AudioManager.setRingerMode] 切换为勿扰模式,高于[Build.VERSION_CODES.M]需要该权限 ;
+ *  - 用户取消或者授权的广播 see [NotificationManager.ACTION_NOTIFICATION_POLICY_ACCESS_GRANTED_CHANGED] ;
+ */
+ fun Activity.requstNotificationPolicy():Boolean{
+    val manager =getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (!manager.isNotificationPolicyAccessGranted()) startActivity(Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS))
+        return manager.isNotificationPolicyAccessGranted
+    }else return true
+}
 
 
 

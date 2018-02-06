@@ -30,11 +30,11 @@ abstract class BaseObserver<T: BaseResponse<*>>(val uiInterface: BaseUiInterface
                 if (it is SocketTimeoutException || it is ConnectException || it is UnknownHostException){
                     ui.showNetworkException()
                 }else if (it is JsonSyntaxException || it is NumberFormatException || it is MalformedJsonException){
-                    ui.showDataException(ui.getContext().resources.getString(R.string.base_error_date_format))
+                    ui.showDataException(ui.getTargetContext()!!.resources.getString(R.string.base_error_date_format))
                 }else if (it is HttpException){
-                    ui.showDataException(ui.getContext().resources.getString(R.string.base_error_http_error,it.code()))
+                    ui.showDataException(ui.getTargetContext()!!.resources.getString(R.string.base_error_http_error,it.code()))
                 }else if( it is NullPointerException){
-                    ui.showDataException(ui.getContext().resources.getString(R.string.base_error_NullPointerException))
+                    ui.showDataException(ui.getTargetContext()!!.resources.getString(R.string.base_error_NullPointerException))
                 }else{
                     ui.showUnknownException()
                 }

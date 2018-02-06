@@ -42,7 +42,7 @@ abstract class BaseFragment :Fragment(),BaseUiInterface{
     /**
      * #### 空实现
      */
-    protected fun parseData(bundle: Bundle){}
+    protected open fun parseData(bundle: Bundle){}
 
 
     override fun showDataException(msg: String) {
