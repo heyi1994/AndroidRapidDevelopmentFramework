@@ -110,6 +110,9 @@ dependencies {
 
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    /*官方kotlin扩展库*/
+    implementation 'androidx.core:core-ktx:0.1'
+
 
 }
 androidExtensions {

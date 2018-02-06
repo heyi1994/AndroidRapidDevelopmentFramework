@@ -27,6 +27,6 @@ interface BaseUiInterface {
      fun showDataException(msg: String)
 
 
-     fun getContext():Context
+     fun getTargetContext(): Context?
 
 }

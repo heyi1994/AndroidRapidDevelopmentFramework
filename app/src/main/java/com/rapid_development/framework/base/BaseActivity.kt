@@ -76,7 +76,7 @@ abstract class BaseActivity:SwipeBackActivity(),BaseUiInterface{
         mToast.show()
     }
 
-    override fun getContext() = this
+    override fun getTargetContext() = this
 
 
     override fun showDataException(msg: String) {
