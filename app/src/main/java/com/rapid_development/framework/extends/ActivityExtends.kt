@@ -13,11 +13,13 @@ import android.os.PowerManager
 import android.provider.Settings
 import android.support.annotation.ColorRes
 import android.support.annotation.StringRes
+import android.text.TextUtils
 import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import com.rapid_development.framework.R
+import com.rapid_development.framework.base.SimpleWebViewActivity
 import com.rapid_development.framework.data.log.L
 import com.rapid_development.framework.utils.Manufacturer
 import com.rapid_development.framework.utils.StatusBarUtils
@@ -154,6 +156,15 @@ val Activity.screenHeight get() = resources.displayMetrics.heightPixels
         if (!manager.isNotificationPolicyAccessGranted()) startActivity(Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS))
         return manager.isNotificationPolicyAccessGranted
     }else return true
+}
+
+/**
+ * #### 跳转H5页面 ;
+ */
+fun Activity.goH5(url:String){
+    if (TextUtils.isEmpty(url))return
+
+    startActivity(SimpleWebViewActivity.createIntent(this,url))
 }
 
 

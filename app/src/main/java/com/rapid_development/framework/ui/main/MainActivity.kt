@@ -15,10 +15,7 @@ import com.rapid_development.framework.data.bean.BaseResponse
 import com.rapid_development.framework.data.log.L
 import com.rapid_development.framework.data.repository.RetrofitSource
 import com.rapid_development.framework.data.sharepreferences.SharepreferenceHelper
-import com.rapid_development.framework.extends.clickButton
-import com.rapid_development.framework.extends.lightStatusBar
-import com.rapid_development.framework.extends.requstNotificationPolicy
-import com.rapid_development.framework.extends.setStatusBarColor
+import com.rapid_development.framework.extends.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
@@ -58,6 +55,7 @@ class MainActivity:BaseActivity(),MainUiInterface{
             SimpleDialog(this).show()
         }
 
+        btn3.setOnClickListener { goH5("http://baidu.com") }
 
     }
     override fun getRootView() = root

@@ -17,12 +17,25 @@
      android:layout_height="60dp" />
 
  <Button
+     android:layout_marginTop="4dp"
      android:layout_below="@id/btn"
      android:id="@+id/btn2"
      android:layout_centerHorizontal="true"
      android:text="click me 2!"
      android:textColor="@color/md_white"
      android:background="@drawable/sel_btn_orange"
+     android:layout_width="150dp"
+     android:layout_height="60dp" />
+
+
+ <Button
+     android:layout_marginTop="4dp"
+     android:layout_below="@id/btn2"
+     android:id="@+id/btn3"
+     android:layout_centerHorizontal="true"
+     android:text="click me 3!"
+     android:textColor="@color/md_white"
+     android:background="@drawable/sel_btn_zhi"
      android:layout_width="150dp"
      android:layout_height="60dp" />
 
